@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Archi Kachhiya — Portfolio</title>
+  <style>
+    :root{ --accent:#2b019d; --accent2:#06b6d4; --muted:#6b7280; --card:#ffffff; }
+    *{box-sizing:border-box}
+    body{ margin:0; font-family: Arial, sans-serif; background:#f8fafc; color:#111; scroll-behavior:smooth }
+    
+    .welcome-text{ text-align:center; font-size:3.5rem; font-weight:600; color:var(--accent); margin:20px 0 0; animation:welcomePop 0.7s cubic-bezier(0.34, 1.56, 0.64, 1); letter-spacing:0.05em; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    
+    /* EDITED HEADER STYLES */
+    header{ background:var(--accent); color:#fff; text-align:center; padding:60px 20px }
+    
+    header h1 {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-weight: 800;
+      font-size: 3.8rem;
+      letter-spacing: -0.02em;
+      margin: 0;
+      background: linear-gradient(to right, #ffffff, #e2e8f0);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: titleReveal 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    header p {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 1.2rem;
+      font-weight: 300;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin: 12px 0 0;
+      color: rgba(255, 255, 255, 0.8);
+      display: inline-block;
+      border-right: 2px solid rgba(255, 255, 255, 0.75);
+      white-space: nowrap;
+      animation: 
+        subtitleReveal 1s cubic-bezier(0.16, 1, 0.3, 1) 0.4s backwards,
+        blinkCursor 0.8s step-end infinite alternate;
+    }
+
+    /* NEW ANIMATIONS FOR HEADER */
+    @keyframes titleReveal {
+      0% { opacity: 0; transform: translateY(30px); filter: blur(10px); }
+      100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+    }
+
+    @keyframes subtitleReveal {
+      0% { opacity: 0; transform: translateY(15px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes blinkCursor {
+      from, to { border-color: transparent }
+      50% { border-color: rgba(255, 255, 255, 0.75); }
+    }
+
+    nav{ background:var(--accent); padding:10px; text-align:center; position:sticky; top:0; z-index:50 }
+    nav a{ color:#fff; margin:0 12px; text-decoration:none; font-weight:600; padding:6px 8px; border-radius:6px }
+    nav a.active{ background:rgba(255,255,255,0.08) }
+    main{ max-width:1100px; margin:28px auto; padding:0 18px }
+    section{ background:var(--card); padding:28px; border-radius:10px; box-shadow:0 6px 20px rgba(17,24,39,0.06); display:none }
+    section.active{ display:block }
+    .projects{ display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px }
+    .project-card{ border:1px solid #e6e6e6; padding:16px; border-radius:10px; background:#fff }
+    footer{ text-align:center; padding:18px; background:var(--accent); color:#fff; margin-top:20px; font-size:1cm; animation:pop 0.6s ease-out; }
+    footer p{ animation:shimmer 3s ease-in-out infinite; }
+    footer p:nth-child(2){ animation-delay:0.10s; }
+    footer p:nth-child(3){ animation-delay:0.5s; }
+    button{ padding:8px 12px; border-radius:6px; border:none; background:var(--accent); color:#fff; cursor:pointer }
+
+    /* Skills */
+    .skills-row{ display:flex; gap:14px; overflow:auto; padding-bottom:8px; margin-top:12px }
+    .skill-card{ flex:0 0 220px; background:#fff; border:1px solid #eee; border-radius:10px; padding:12px; display:flex; gap:12px; align-items:center; min-width:180px }
+    .skill-icon{ width:46px; height:46px; border-radius:8px; background:var(--accent); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700 }
+    .skill-info{ flex:1 }
+    .skill-name{ font-weight:700 }
+    .progress{ height:10px; background:#f3f4f6; border-radius:999px; overflow:hidden }
+    .progress-fill{ height:100%; background:linear-gradient(90deg,var(--accent),var(--accent2)); }
+
+    /* Bottom tabs */
+    .section-buttons{ display:flex; gap:8px; margin:18px 0 8px; justify-content:center; flex-wrap:wrap }
+    .tab{ padding:8px 12px; border-radius:8px; border:1px solid #e6e6e6; background:#fff; cursor:pointer }
+    .tab.active{ background:var(--accent); color:#fff; border-color:var(--accent); transform:translateY(-3px) }
+
+    /* Styling for links inside contact section */
+    section#contact a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    section#contact a:hover {
+      text-decoration: underline;
+    }
+
+    @media(max-width:640px){ .skill-card{ flex:0 0 70% } }
+
+    /* Future animation */
+    .future-text{
+      font-size:3.5rem;
+      font-weight:900;
+      background:linear-gradient(45deg, #2b019d, #06b6d4, #2b019d);
+      background-size:300% 300%;
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      background-clip:text;
+      animation:gradientShift 6s ease infinite, float 3s ease-in-out infinite;
+      letter-spacing:0.05em;
+      text-transform:uppercase;
+      font-family:'Impact', 'Arial Black', sans-serif;
+      margin:10px 0;
+    }
+
+    @keyframes welcomePop{
+      0%{ transform:scale(0) rotateY(-30deg); opacity:0; }
+      50%{ transform:scale(1.15) rotateY(10deg); }
+      100%{ transform:scale(1) rotateY(0); opacity:1; }
+    }
+
+    @keyframes gradientShift{
+      0%{ background-position:0% 50%; }
+      50%{ background-position:100% 50%; }
+      100%{ background-position:0% 50%; }
+    }
+
+    @keyframes float{
+      0%, 100%{ transform:translateY(0px); }
+      50%{ transform:translateY(-10px); }
+    }
+
+    @keyframes pop{
+      0%{ transform:scale(0.8); opacity:0; }
+      50%{ transform:scale(1.05); }
+      100%{ transform:scale(1); opacity:1; }
+    }
+
+    @keyframes shimmer{
+      0%, 100%{ text-shadow:0 0 5px rgba(255,255,255,0.3), 0 0 10px rgba(6,182,212,0.2); transform:translateY(0px); }
+      50%{ text-shadow:0 0 15px rgba(255,255,255,0.6), 0 0 25px rgba(6,182,212,0.5); transform:translateY(-2px); }
+    }
+
+    @media(max-width:640px){ 
+      .future-text{ font-size:2rem; } 
+      header h1 { font-size: 2.5rem; }
+      header p { font-size: 1rem; letter-spacing: 0.15em; }
+    }
+  </style>
+</head>
+<body>
+  <div class="welcome-text">✨ Welcome To My Portfolio ✨</div>
+  <header>
+    <h1>Archi Kachhiya</h1>
+    <div class="future-text">Future</div>
+    <p>Web Developer</p>
+  </header>
+
+  <nav>
+    <a href="#about" data-target="about" class="nav-link">About</a>
+    <a href="#skills" data-target="skills" class="nav-link">Skills</a>
+    <a href="#projects" data-target="projects" class="nav-link">Projects</a>
+    <a href="#contact" data-target="contact" class="nav-link">Contact</a>
+    <a href="./Resume.pdf" target="_blank">Resume</a>
+  </nav>
+
+  <main>
+    <section id="about" class="active">
+      <h2>About Me</h2>
+      <p>Computer Engineering student with knowledge of HTML, CSS, JavaScript, React, Python. Developed projects such as a Beverage Ordering System and a personal portfolio website. Familiar with responsive web design, database integration, and problem-solving. Quick learner with good communication and teamwork skills. Interested in web and software development, and looking for an opportunity to start my career in the IT industry.</p>
+    </section>
+
+    <section id="skills">
+      <h2>Skills</h2>
+      <div class="skills-row" id="skillsRow">
+        <div class="skill-card">
+          <div class="skill-icon">H</div>
+          <div class="skill-info">
+            <div class="skill-name">HTML</div>
+            <div class="progress"><div class="progress-fill" style="width:90%"></div></div>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-icon">C</div>
+          <div class="skill-info">
+            <div class="skill-name">CSS </div>
+            <div class="progress"><div class="progress-fill" style="width:85%"></div></div>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-icon">J</div>
+          <div class="skill-info">
+            <div class="skill-name">JavaScript</div>
+            <div class="progress"><div class="progress-fill" style="width:80%"></div></div>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-icon">R</div>
+          <div class="skill-info">
+            <div class="skill-name">React</div>
+            <div class="progress"><div class="progress-fill" style="width:75%"></div></div>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-icon">P</div>
+          <div class="skill-info">
+            <div class="skill-name">Python</div>
+            <div class="progress"><div class="progress-fill" style="width:70%"></div></div>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-icon">M</div>
+          <div class="skill-info">
+            <div class="skill-name">MongoDB</div>
+            <div class="progress"><div class="progress-fill" style="width:65%"></div></div>
+          </div>
+        </div>
+
+         <div class="skill-card">
+          <div class="skill-icon">AS</div>
+          <div class="skill-info">
+            <div class="skill-name">Android Studio</div>
+            <div class="progress"><div class="progress-fill" style="width:85%"></div></div>
+          </div>
+        </div>
+
+         <div class="skill-card">
+          <div class="skill-icon">Fl</div>
+          <div class="skill-info">
+            <div class="skill-name">Flutter</div>
+            <div class="progress"><div class="progress-fill" style="width:80%"></div></div>
+          </div>
+        </div>
+
+         <div class="skill-card">
+          <div class="skill-icon">Tw</div>
+          <div class="skill-info">
+            <div class="skill-name">Tailwind CSS</div>
+            <div class="progress"><div class="progress-fill" style="width:85%"></div></div>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-icon">Njs</div>
+          <div class="skill-info">
+            <div class="skill-name">Node.js</div>
+            <div class="progress"><div class="progress-fill" style="width:85%"></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <h2>Projects</h2>
+      <div class="projects">
+        <div class="project-card">
+          <h3>Beverage Ordering System</h3>
+          <p>Mini project for ordering drinks online.</p>
+        </div>
+        <div class="project-card">
+          <h3>Personal Portfolio Website</h3>
+          <p>Developed a personal portfolio website to showcase my skills and projects.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2>Contact</h2>
+      <p>Mobile No.: <a href="tel:9327310187">9327310187</a></p>
+      <p>Email: <a href="mailto:kachhiyaarchi1@email.com">kachhiyaarchi1@email.com</a></p>
+      <p>GitHub: <a href="https://github.com/archikachhiya1511" target="_blank">github.com/archikachhiya1511</a></p>
+    </section>
+
+    <div class="section-buttons" aria-label="Sections">
+      <button class="tab active" data-target="about">About</button>
+      <button class="tab" data-target="skills">Skills</button>
+      <button class="tab" data-target="projects">Projects</button>
+      <button class="tab" data-target="contact">Contact</button>
+      <button class="tab" id="resumeBtn" data-file="Resume.pdf">Resume</button>
+    </div>
+    <div id="resumeStatus" style="text-align:center;color:#b91c1c;margin-top:8px;display:none;"></div>
+  </main>
+
+<section id="collaboration" style="
+  margin-top: 30px;
+  text-align: center;
+  background: linear-gradient(135deg, #ffffff, #f8faff);
+  color: #111827;
+  padding: 55px 30px;
+  border-radius: 20px;
+  border: 2px solid rgba(43, 1, 157, 0.08);
+  box-shadow: 0 15px 40px rgba(43, 1, 157, 0.08);
+  display: block;
+">
+  <h2 style="
+    font-size: 2.7rem;
+    margin-bottom: 18px;
+    font-family: 'Trebuchet MS', sans-serif;
+    background: linear-gradient(90deg, #2b019d, #06b6d4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 800;
+  ">
+       Turning Ideas Into Reality
+  </h2>
+  <p style="
+    font-size: 1.2rem;
+    max-width: 760px;
+    margin: 0 auto 25px;
+    line-height: 1.9;
+    color: #374151;
+  ">
+    I believe great websites are more than just design —
+    they create experiences, build trust, and leave lasting impressions.
+    My goal is to craft modern and responsive web solutions that help people and brands grow online.
+  </p>
+  <p style="
+    font-size: 1.15rem;
+    max-width: 720px;
+    margin: 0 auto 30px;
+    line-height: 1.8;
+    color: #4b5563;
+    font-weight: 500;
+  ">
+    From creative portfolio websites to interactive frontend projects,
+    I focus on clean code, smooth user experience, and visually attractive interfaces.
+  </p>
+  <div style="
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 32px;
+    color: #2b019d;
+  ">
+       Let’s build something meaningful and innovative together.
+  </div>
+  <a href="mailto:kachhiyaarchi1@email.com"
+     style="
+       display: inline-block;
+       padding: 15px 34px;
+       background: linear-gradient(90deg, #2b019d, #06b6d4);
+       color: #ffffff;
+       text-decoration: none;
+       font-weight: 700;
+       border-radius: 50px;
+       box-shadow: 0 10px 25px rgba(43, 1, 157, 0.18);
+       transition: all 0.3s ease;
+     ">
+       Let’s Connect
+  </a>
+</section>
+
+  <footer>
+    <p style="margin:8px 0;">&copy; 2026 Archi Kachhiya.</p>
+    <p style="margin:8px 0;">📧 <a href="mailto:kachhiyaarchi1@email.com" style="color:#fff; text-decoration:none;">kachhiyaarchi1@email.com</a> | 📱 <a href="tel:9327310187" style="color:#fff; text-decoration:none;">9327310187</a></p>
+    <p style="margin:8px 0;">Follow me: <a href="https://github.com/archikachhiya1511" target="_blank" style="color:#fff; text-decoration:none;">GitHub</a></p>
+  </footer>
+
+  <script>
+    (function(){
+      const sections = document.querySelectorAll('main section');
+      const tabs = document.querySelectorAll('.section-buttons .tab');
+      const navLinks = document.querySelectorAll('nav .nav-link');
+
+      function showSection(id){
+        sections.forEach(s => s.id === id ? s.classList.add('active') : s.classList.remove('active'));
+        tabs.forEach(t => t.dataset.target === id ? t.classList.add('active') : t.classList.remove('active'));
+        navLinks.forEach(n => n.dataset.target === id ? n.classList.add('active') : n.classList.remove('active'));
+        const el = document.getElementById(id);
+        if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+      }
+
+      tabs.forEach(t => t.addEventListener('click', () => showSection(t.dataset.target)));
+      navLinks.forEach(a => a.addEventListener('click', e => { e.preventDefault(); showSection(a.dataset.target); }));
+
+      // initial
+      showSection('about');
+    })();
+  </script>
+</body>
+</html>
